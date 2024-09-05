@@ -57,7 +57,13 @@ function App() {
                 try {
                     const jsonObject = JSON.parse(part);
                     const rawText = jsonObject.candidates[0]?.content?.parts?.[0]?.text || "";
+<<<<<<< HEAD
                     const cleanedText = rawText.replace(/\*/g, '')
+=======
+                    // console.log("raw text: ", rawText)
+                    const cleanedText = rawText.replace(/\*/g, '')
+                    // console.log("cleaned text: ", cleanedText)
+>>>>>>> e534bda30172f08deeaa1882b35b1b46a9e9ad06
 
                     // Update the UI with the parsed text
                     setMessages((prevMessages) => {

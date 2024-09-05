@@ -34,7 +34,13 @@ Your goal is to provide accurate, detailed, and helpful solutions to ensure the 
 `
 
 module.exports.generateResponse = async(req) => {
+<<<<<<< HEAD
     const data = req.body;
+=======
+    // console.log("generateResponse called");  // Check if this gets printed
+    const data = req.body;
+    // console.log("Received data:", data); 
+>>>>>>> e534bda30172f08deeaa1882b35b1b46a9e9ad06
 
     const pc = new Pinecone({
         apiKey: process.env.PINECONE_KEY
@@ -53,6 +59,11 @@ module.exports.generateResponse = async(req) => {
         includeMetadata: true,
         vector: embedding.values
     })
+<<<<<<< HEAD
+=======
+
+    // console.log("\nResults: ", results)
+>>>>>>> e534bda30172f08deeaa1882b35b1b46a9e9ad06
     
     let resultString = "\n\nReturned results from Vector DB (done automatically): "
     results.matches.forEach((match) => {
@@ -68,6 +79,11 @@ module.exports.generateResponse = async(req) => {
         \n\n
         `;
     })
+<<<<<<< HEAD
+=======
+    // console.log("\nResults string: ", resultString)
+    // console.log("response agya")
+>>>>>>> e534bda30172f08deeaa1882b35b1b46a9e9ad06
     
     const lastMessageContent = data[data.length - 1].content + resultString
     const lastDataWithoutLastMessage = data.slice(0, data.length - 1)
@@ -83,6 +99,7 @@ module.exports.generateResponse = async(req) => {
     genAIModel = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
     const completions = await genAIModel.generateContentStream(conversationText);
 
+<<<<<<< HEAD
     // Use an array to accumulate the chunks
     const chunks = [];
 
@@ -90,6 +107,35 @@ module.exports.generateResponse = async(req) => {
         chunks.push(JSON.stringify(chunk) + "\n");  // Append newline delimiter
     }
 
+=======
+    // console.log(completions)
+
+    // Create a ReadableStream to stream the response back to the client
+    // const stream = new ReadableStream({
+    //     async start(controller) {
+    //         const encoder = new TextEncoder();
+    //         for await (const chunk of completions.stream) {
+    //             // console.log("Chunk: ", chunk)
+    //             const encodedChunk = encoder.encode(JSON.stringify(chunk));
+    //             controller.enqueue(encodedChunk);
+    //         }
+    //         controller.close();
+    //     }
+    // });
+
+    // console.log("Stream: ", stream)
+    // console.log("Stream type: ", typeof stream)
+
+    // return stream;
+
+    // Use an array to accumulate the chunks
+    const chunks = [];
+
+    for await (const chunk of completions.stream) {
+        chunks.push(JSON.stringify(chunk) + "\n");  // Append newline delimiter
+    }
+
+>>>>>>> e534bda30172f08deeaa1882b35b1b46a9e9ad06
     // Create a Node.js Readable stream from the accumulated chunks
     const nodeStream = Readable.from(chunks);
 
