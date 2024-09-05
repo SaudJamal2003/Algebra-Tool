@@ -1,5 +1,20 @@
 {
+  "name": "algebra-tool",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
   "dependencies": {
-    "express": "^4.19.2"
+    "@google/generative-ai": "^0.17.1",
+    "@pinecone-database/pinecone": "^3.0.2",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-async-errors": "^3.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
   }
 }

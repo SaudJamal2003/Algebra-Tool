@@ -2,9 +2,16 @@ const express = require('express');
 const router = express.Router();
 const service = require('./service.js');
 
-router.post('/solve', async (req, res) => {
-    const answer = await service.generateResponse(req);
-    res.send(answer);
+// Define the POST route for /solve
+router.post('/', async (req, res) => {
+    console.log("POST /solve route hit");  // Debugging log
+    try {
+        const answer = await service.generateResponse(req);
+        answer.pipe(res)
+    } catch (error) {
+        console.error("Error in /solve route:", error);  // Log any errors
+        res.status(500).send({ error: 'Error generating response' });
+    }
 });
 
-module.exports = router
+module.exports = router;
