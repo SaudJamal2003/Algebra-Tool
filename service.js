@@ -1,6 +1,9 @@
 // import { NextResponse } from "next/server";
-import { Pinecone } from "@pinecone-database/pinecone";
-import { GoogleGenerativeAI } from "@google/generative-ai";
+const { Pinecone } = require("@pinecone-database/pinecone");
+const { GoogleGenerativeAI } = require("@google/generative-ai");
+const { ReadableStream } = require('stream/web'); // Ensure you import ReadableStream
+const { Readable } = require('stream');  // Import Node.js Readable stream
+
 
 const systemPrompt = 
 `
@@ -30,17 +33,20 @@ Offer follow-up support by suggesting alternative approaches or providing additi
 Your goal is to provide accurate, detailed, and helpful solutions to ensure the student can understand the process of solving linear equations and apply it to their own work.
 `
 
-module.exports.generateResponse =  async(req) => {
-    const data = await req.json()
+module.exports.generateResponse = async(req) => {
+    // console.log("generateResponse called");  // Check if this gets printed
+    const data = req.body;
+    // console.log("Received data:", data); 
+
     const pc = new Pinecone({
         apiKey: process.env.PINECONE_KEY
     })
 
-    const index = pc.Index("rag").namespace("ns1")
+    const index = pc.Index("rag-alg").namespace("ns1")
     const genAI = new GoogleGenerativeAI(process.env.API_KEY)
 
     const text = data[data.length - 1].content
-    let model = genAI.getGenerativeModel({ model: "text-embedding-004"})
+    let model = genAI.getGenerativeModel({ model: "text-embedding-004" })
     const result = await model.embedContent(text)
     const embedding = result.embedding;
     // console.log(result, embedding)
@@ -52,21 +58,26 @@ module.exports.generateResponse =  async(req) => {
         vector: embedding.values
     })
 
+    // console.log("\nResults: ", results)
+    
     let resultString = "\n\nReturned results from Vector DB (done automatically): "
     results.matches.forEach((match) => {
         resultString += `
+        \n
         Question ID: ${match.id}
         Question: ${match.metadata.question}
         Solution: ${match.metadata.solution}
         Topic: ${match.metadata.topic}
         Difficulty: ${match.metadata.difficulty}
-        Steps: ${match.metadata.steps.join('\n')}
-
+        Steps: ${match.metadata.steps}
+        Tags: ${match.metadata.tags}
+        \n\n
         `;
     })
-
-    const lastMessage = data[data.length - 1]
-    const lastMessageContent = lastMessage.content + resultString
+    // console.log("\nResults string: ", resultString)
+    // console.log("response agya")
+    
+    const lastMessageContent = data[data.length - 1].content + resultString
     const lastDataWithoutLastMessage = data.slice(0, data.length - 1)
 
     const conversation = [
@@ -75,24 +86,41 @@ module.exports.generateResponse =  async(req) => {
         { role: "user", content: lastMessageContent },
     ]
     const conversationText = conversation.map(message => `${message.role}: ${message.content}`).join('\n')
-    // console.log(conversationText)
+    // console.log("Conversation text: ", conversationText)
     
-    model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    genAIModel = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    const completions = await genAIModel.generateContentStream(conversationText);
 
-
-    const completions = await model.generateContentStream(conversationText);
+    // console.log(completions)
 
     // Create a ReadableStream to stream the response back to the client
-    const stream = new ReadableStream({
-        async start(controller) {
-            const encoder = new TextEncoder();
-            for await (const chunk of completions.stream) {
-                const encodedChunk = encoder.encode(JSON.stringify(chunk));
-                controller.enqueue(encodedChunk);
-            }
-            controller.close();
-        }
-    });
+    // const stream = new ReadableStream({
+    //     async start(controller) {
+    //         const encoder = new TextEncoder();
+    //         for await (const chunk of completions.stream) {
+    //             // console.log("Chunk: ", chunk)
+    //             const encodedChunk = encoder.encode(JSON.stringify(chunk));
+    //             controller.enqueue(encodedChunk);
+    //         }
+    //         controller.close();
+    //     }
+    // });
 
-    return stream;
+    // console.log("Stream: ", stream)
+    // console.log("Stream type: ", typeof stream)
+
+    // return stream;
+
+    // Use an array to accumulate the chunks
+    const chunks = [];
+
+    for await (const chunk of completions.stream) {
+        chunks.push(JSON.stringify(chunk) + "\n");  // Append newline delimiter
+    }
+
+    // Create a Node.js Readable stream from the accumulated chunks
+    const nodeStream = Readable.from(chunks);
+
+    return nodeStream;  // Return a Node.js-readable stream
+
 }
