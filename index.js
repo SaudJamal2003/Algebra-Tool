@@ -3,11 +3,17 @@ const app = express();
 const PORT = process.env.PORT || 3002;
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const db = require('./db');
+const jwt = require('jsonwebtoken');
+const { verifyUser } = require('./middleware');
+
 
 require('dotenv').config();
 
 // Import router for /solve route
-const solverRoutes = require('./router.js');
+const solverRoutes = require('./sloverRouter.js');
+const signupRoutes = require('./signupRouter.js');
+const loginRoutes = require('./loginRouter.js');
 
 // Middleware to parse JSON request bodies
 app.use(bodyParser.json());
@@ -20,12 +26,14 @@ app.use(cors({
 }));
 
 // Simple GET request to verify the server is working
-app.get('/', (req, res) => {
+app.get('/', verifyUser, (req, res) => {
     return res.json({ status: "Success" });
 });
 
 // Register the /solve route
 app.use('/solve', solverRoutes);  // This registers the POST route
+app.use('/signup', signupRoutes);  // This registers the POST route
+app.use('/login', loginRoutes);  // This registers the POST route
 
 // Error handling middleware
 app.use((err, req, res, next) => {
@@ -34,4 +42,10 @@ app.use((err, req, res, next) => {
 });
 
 // Start the server
-app.listen(PORT, () => console.log(`server running at port ${PORT}`));
+db.query('SELECT 1')
+    .then(() => {
+        console.log('db connection succeeded.')
+        app.listen(PORT,
+            () => console.log(`server running at port ${PORT}`))
+    })
+    .catch(err => console.log('db connection failed. \n' + err))
