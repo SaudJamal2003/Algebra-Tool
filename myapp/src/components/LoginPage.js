@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import {Link} from 'react-router-dom';
+import ParticlesComponent from './particles';
 import "../Css/signup.css";
 
 
@@ -32,7 +32,7 @@ function LoginPage() {
           .then((response) => response.json())
           .then(res => {
             if (res.status === "Success") {
-              navigate('/AlgebraSolver')
+              navigate('/home')
             }
             else {
               alert(res.error);
@@ -43,12 +43,21 @@ function LoginPage() {
           });
       };
   return (
-    <>
+    <>  
+        <ParticlesComponent id='particles'/>
         <div className='main' >
         <form onSubmit={handleSubmit}>
-            <input type='text' className='name' onChange={handleInputChange} name= 'email' value={credentials.email || ' '} required />
-            <input type='password' className='password' onChange={handleInputChange} name='password' value={credentials.password || ' '} required />
-            <button type='submit'>Login</button>
+          <h1>Login with your Credentials 🔑</h1>
+          <div className='email'>
+              <h2>Enter your email address</h2>
+              <input type='text' className='name' onChange={handleInputChange}  placeholder='Email' name= 'email' value={credentials.email} required />
+          </div>
+           
+           <div className='passwordfield'>
+              <h2>Enter Password</h2>
+              <input type='password' className='password' onChange={handleInputChange}  placeholder='Password' name='password' value={credentials.password} required />
+            </div>  
+            <button className='buttons' type='submit'>Login</button>
         </form>
     </div>
     </>

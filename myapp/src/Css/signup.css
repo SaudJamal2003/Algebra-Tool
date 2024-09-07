@@ -1,10 +1,17 @@
+#particles canvas{
+    z-index: -1;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}
+
 .main{
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: antiquewhite;
+    background-color: transparent;
 }
 
 form{
@@ -17,20 +24,107 @@ form{
     border-style: solid;
     border-color: black;
     border-width: 1.2px;
-    padding: 20px;
     gap: 20px;
+    padding: 20px;
+    backdrop-filter: blur(10px);
+    background-color: rgba(255,255,255, 0.3);
+    border-radius: 1.5rem;
+    position: relative;
+    z-index: 1;
 }
+
+@property --angle{
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+}
+
+
+form::after, form::before{
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-image: conic-gradient(from var(--angle), transparent 70%, #FA2A55);
+    z-index: -1;
+    padding: 3px;
+    border-radius: 1.5rem;
+    animation: 3s spin linear infinite;
+}
+
+form::before{
+    filter: blur(1.5rem);
+    opacity: 0.6;
+}
+
+@keyframes spin{
+    from{
+        --angle: 0deg;
+    }
+    to{
+        --angle: 360deg;
+    }
+}
+
+form h1{
+    color: white;
+    font-size: 20px;
+    font-family: 'Outfit';
+}
+
 input{
-    width: 80%;
-    height: 55px;
-    border-style: solid;
-    border-color: black;
+    width: 82%;
+    height: 45px;
+    border-style: none;
     border-width: 1.2px;
+    margin-left: 32px;
+    font-family: 'Outfit';
+    font-size: small;
 }
-button{
-    height: 50px;
-    border-style: solid;
+input::placeholder{
+    padding: 10px;
+    color: black;
+    font-family: 'Outfit';
+    font-size: small;
+}
+.email, .passwordfield{
+    width: 100%;
+}
+.email h2, .passwordfield h2{
+    margin-left: 30px;
+    font-size: 14px;
+    font-family: 'Outfit';
+    color: white;
+
+}
+.buttonDiv{
+    display: flex;
+    width: 90%;
+    align-items: center;
+    justify-content: space-around;
+}
+.buttons{
+    height: 40px;
+    width: 40%;
+    border-style: none;
     border-color: black;
     border-width: 1.2px;
-    width: 20%;
+    font-family: 'Outfit';
+    color: white;
+    font-size: small;
+    background-color: #FA2A55;
+}
+.buttons:hover{
+    border-style: solid;
+    border-width: 1.2px;
+    border-color: #FA2A55;
+    background-color: transparent;
+    transition: 0.3s ease-in-out;
+}
+
+@media (max-width: 768px){
+    form{
+        width: 90%;
+    }
+
 }

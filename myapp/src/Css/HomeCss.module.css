@@ -1,0 +1,167 @@
+.homePage{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+}
+
+.homePage nav{
+    width: 100%;
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    /* background-color: rgb(113, 82, 43); */
+}
+
+.homePage nav svg{
+    width: 70px;
+    height: 70px;
+}
+
+.homePage nav ul{
+    display: flex;
+    gap: 20px;
+    font-family: 'Outfit';
+    margin-right: 10px;
+    color: white;
+    cursor: pointer;
+}
+
+.main{
+    display: flex;
+    flex-direction: column;
+    font-family: 'Outfit';
+    text-align: left;
+    gap: 10px;
+    width: 100%;
+    padding: 40px;
+    color: white;
+    /* background-color: antiquewhite; */
+}
+
+.main h1{
+    font-size: 25px;
+}
+
+.questiontype{
+    width: 70%;
+    height: 350px;
+    border-radius: 4rem;
+    /* margin-top: -50px; */
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-style: solid;
+    border-width: 2px;
+    border-color:  #5ad1cd;
+}
+
+.parentButton{
+    width: 27%;
+    height: 210px;
+    border-radius: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* background: linear-gradient(to right, #c6ffdd, #fbd786, #f7797d);; */
+    padding: 5px;
+    border-style: solid;
+    border-width: 1.2px;
+    border-color: white;
+    box-shadow: #5ad1cd 0px 5px 15px;
+
+}
+
+.linearAlgebra{
+    width: 100%;
+    height: 198px;
+    border-style: none;
+    text-align: center;
+    font-family: 'Outfit';
+    font-size: 15px;
+    border-radius: 1rem;
+    /* background:linear-gradient(to right, #c33764, #1d2671) */
+    background-color: transparent;
+    transition: 0.3s ease-in-out;
+    color: white;
+}
+
+.linearAlgebra:hover{
+    /* background: linear-gradient(to right, #c33764, #1d2671); */
+    transition: 0.3s ease-in-out;
+    background-color: #5ad1cd;
+    transform: scale(1.01);
+    border-style: none;
+    color: black;
+}
+
+
+.footer{
+    margin-top: 40px;
+    width: 100%;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding-top: 40px;
+}
+
+.footer h1{
+    text-align: center;
+    text-wrap: balance;
+    font-family: 'Outfit';
+    font-weight: 500;
+    font-size: 25px;
+    color: white;
+}
+
+.footer hr{
+    background-color: white;
+    height: 300px;
+    width: 100%;
+}
+.iconButton{
+    width: fit-content;
+    height: 50px;
+}
+
+.icons{
+    display: flex;
+    justify-content: space-around;
+    width: 10%;
+    gap: 20px;
+}
+
+@media (max-width: 900px){
+    .main h1{
+        font-size: 4vmax;
+    }
+    .main p{
+        font-size: 3.2vmin;
+    }
+}
+
+@media (max-width: 768px){
+    .questiontype{
+        width: 90%;
+        /* display:co; */
+        /* flex-direction: column; */
+        height: fit-content;
+        border-style: none;
+        gap: 20px;
+    }
+    .parentButton{
+        width: 85%;
+        width: 50%;
+        height: 120px;
+    }
+    .linearAlgebra{
+        height: 108px;
+    }
+    .icons{
+        width: 30%;
+    }
+}

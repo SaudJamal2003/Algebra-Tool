@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 3002;
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const db = require('./db');
 const jwt = require('jsonwebtoken');
@@ -9,11 +10,13 @@ const { verifyUser } = require('./middleware');
 
 
 require('dotenv').config();
+app.use(cookieParser());
 
 // Import router for /solve route
 const solverRoutes = require('./sloverRouter.js');
 const signupRoutes = require('./signupRouter.js');
 const loginRoutes = require('./loginRouter.js');
+const logoutRoutes = require('./logoutRouter.js');
 
 // Middleware to parse JSON request bodies
 app.use(bodyParser.json());
@@ -34,6 +37,7 @@ app.get('/', verifyUser, (req, res) => {
 app.use('/solve', solverRoutes);  // This registers the POST route
 app.use('/signup', signupRoutes);  // This registers the POST route
 app.use('/login', loginRoutes);  // This registers the POST route
+app.use('/logout', logoutRoutes);  // This registers the POST route
 
 // Error handling middleware
 app.use((err, req, res, next) => {

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import "../Css/signup.css";
 import { useNavigate } from 'react-router-dom';
+import ParticlesComponent from './particles';
 
 function Signup() {
   const [credentials, setCredentials] = useState({
@@ -39,13 +40,23 @@ const handleSubmit = (e) => {
 
   return (
     <>
+    <ParticlesComponent id='particles'/>
     <div className='main' >
         <form onSubmit={handleSubmit}>
-            <input type='text' className='name' onChange={handleInputChange} name= 'email' value={credentials.email || ' '} required />
-            <input type='password' className='password' onChange={handleInputChange} name='password' value={credentials.password || ' '} required />
-            <button type='submit'>Signup</button>
+          <h1>Signup 🚀</h1>
+          <div className='email'>
+              <h2>Enter valid email address</h2>
+              <input type='text' className='name' onChange={handleInputChange} placeholder='Email' name= 'email' value={credentials.email} required />
+           </div>
+           <div className='passwordfield'>
+              <h2>Enter Password</h2>
+              <input type='password' className='password' onChange={handleInputChange} placeholder='Password' name='password' value={credentials.password} required />
+          </div>
+          <div className='buttonDiv'>
+            <button className='buttons' type='submit'>Signup</button>
+            <button className='buttons' onClick={navigateLogin}>Login</button>
+          </div>
         </form>
-            <button onClick={navigateLogin}>Login</button>
     </div>
     
     </>
