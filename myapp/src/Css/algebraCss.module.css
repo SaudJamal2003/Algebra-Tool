@@ -1,0 +1,220 @@
+#particles canvas{
+    z-index: -1;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}
+
+nav{
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* padding: 20px; */
+    /* background-color: rgb(113, 82, 43); */
+}
+
+ nav svg{
+    width: 70px;
+    height: 70px;
+}
+
+nav ul{
+    display: flex;
+    gap: 20px;
+    font-family: 'Outfit';
+    margin-right: 10px;
+    color: white;
+    cursor: pointer;
+}
+
+.main{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    /* margin-top: 100px; */
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    background-color: transparent;
+}
+
+.questionForm{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    gap: 20px;
+    border-style: none;
+
+}
+
+.questionForm h1{
+    color: white;
+    font-family: 'Outfit';
+    font-weight: 500;
+    font-size: 22px;
+    text-align: center;
+}
+
+.inputDiv{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.inputEq{
+    width: 50%;
+    border-style: solid;
+    border-width: 1.2px;
+    border-color: white;
+    padding: 10px;
+}
+
+.inputEq::placeholder{
+    color: gray;
+}
+
+.solveButton{
+    width: 8%;
+    height: 45px;
+    border-style: none;
+    padding: 10px;
+    font-size: small;
+    font-weight: 500;
+    color: white;
+    background-color: #5ad1cd;
+    font-family: 'Outfit';
+}
+
+.ansExp{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    gap: 20px;
+}
+
+.answerDiv{
+    display: flex;
+    font-family: 'Outfit';
+    font-size: small;
+    border-style: solid;
+    border-width: 1.5px;
+    border-color: #5ad1cd;
+    border-radius: 0.3rem;
+    width: 10%;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.expbtn{
+    width: 10%;
+    height: 45px;
+    border-style: none;
+    padding: 10px;
+    font-size: small;
+    font-weight: 500;
+    color: white;
+    background-color: #5ad1cd;
+    border-radius: 0.3rem;
+    font-family: 'Outfit';
+
+}
+
+.expbtn, .solveButton{
+    border-style: solid;
+    border-width: 1.5px;
+    background-color: transparent;
+    border-color: #5ad1cd;
+    color: #5ad1cd;
+    transition: 0.5s ease-in;
+}
+
+#explanation{
+    background-color: transparent;
+    width: 62%;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    font-family: 'Outfit';
+    font-weight: 500;
+    transition: 0.5s ease-in-out;
+    border-style: solid;
+    border-width: 1.5px;
+    border-radius: 0.1rem;
+    border-color: #5ad1cd;
+    color: white;
+    overflow-y: scroll;
+}
+
+#explanation::-webkit-scrollbar {
+  width: 3px;
+}
+
+#explanation::-webkit-scrollbar-track {
+  background: white;
+  border-style: solid;
+  border-color: transparent;
+  border-width: 3px;
+  border-radius: 0rem 2rem 0rem 0rem;
+  height: 90%;
+}
+
+#explanation::-webkit-scrollbar-thumb {
+  background: #5ad1cd;
+  width: 2px;
+  border-style: solid;
+  border-color: transparent;
+  border-radius: 1rem;
+}
+
+.contentDiv{
+    padding: 10px;
+}
+
+@media (max-width: 900px){
+    .questionForm h1{
+        font-size: 3vmax;
+    }
+
+}
+
+@media (max-width: 700px){
+    .questionForm{
+        width: 100%;
+    }
+    .main{
+        height: fit-content;
+        margin-top: 50px;
+    }
+    .inputDiv{
+        width: 100%;
+        /* background-color: antiquewhite; */
+    }
+    .inputEq{
+        width: 100%;
+        /* width: 90%;
+        margin-right: 20px; */
+    }
+    .solveButton{
+        width: 16%;
+        margin-right:29px;
+        border-radius: 0.3rem;
+    }
+    .expbtn{
+        width: 40%;
+    }
+    .answerDiv{
+        width: 40%;
+    }
+    #explanation{
+        width: 85%;
+    }
+}

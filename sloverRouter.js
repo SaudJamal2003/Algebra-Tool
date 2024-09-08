@@ -6,6 +6,7 @@ const service = require('./sloverService.js');
 router.post('/', async (req, res) => {
     console.log("POST /solve route hit");  // Debugging log
     try {
+        // console.log(req)
         const answer = await service.generateResponse(req);
         // console.log("Router's answer: ", answer)
         // res.send(answer);  // Send the generated response

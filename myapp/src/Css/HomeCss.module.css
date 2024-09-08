@@ -4,6 +4,12 @@
     width: 100%;
     align-items: center;
 }
+#particles canvas{
+    z-index: -1;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}
 
 .homePage nav{
     width: 100%;
@@ -28,7 +34,6 @@
     color: white;
     cursor: pointer;
 }
-
 .main{
     display: flex;
     flex-direction: column;
@@ -133,6 +138,7 @@
     justify-content: space-around;
     width: 10%;
     gap: 20px;
+    cursor: pointer;
 }
 
 @media (max-width: 900px){

@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import ParticlesComponent from './particles';
-import "../Css/signup.css";
+import LoginCss from  "../Css/signup.module.css";
 
 
 function LoginPage() {
@@ -44,20 +44,20 @@ function LoginPage() {
       };
   return (
     <>  
-        <ParticlesComponent id='particles'/>
-        <div className='main' >
-        <form onSubmit={handleSubmit}>
+        <ParticlesComponent id={LoginCss.particles}/>
+        <div className={LoginCss.main} >
+        <form onSubmit={handleSubmit} className={LoginCss.credentialsForm}>
           <h1>Login with your Credentials 🔑</h1>
-          <div className='email'>
+          <div className={LoginCss.email}>
               <h2>Enter your email address</h2>
-              <input type='text' className='name' onChange={handleInputChange}  placeholder='Email' name= 'email' value={credentials.email} required />
+              <input type='text' className={LoginCss.name} onChange={handleInputChange}  placeholder='Email' name= 'email' value={credentials.email} required />
           </div>
            
-           <div className='passwordfield'>
+           <div className={LoginCss.passwordfield}>
               <h2>Enter Password</h2>
-              <input type='password' className='password' onChange={handleInputChange}  placeholder='Password' name='password' value={credentials.password} required />
+              <input type='password' className={LoginCss.password} onChange={handleInputChange}  placeholder='Password' name='password' value={credentials.password} required />
             </div>  
-            <button className='buttons' type='submit'>Login</button>
+            <button className={LoginCss.buttons} type='submit'>Login</button>
         </form>
     </div>
     </>

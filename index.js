@@ -17,6 +17,7 @@ const solverRoutes = require('./sloverRouter.js');
 const signupRoutes = require('./signupRouter.js');
 const loginRoutes = require('./loginRouter.js');
 const logoutRoutes = require('./logoutRouter.js');
+const ansRoutes = require('./simplifiedAnsRouter.js');
 
 // Middleware to parse JSON request bodies
 app.use(bodyParser.json());
@@ -38,6 +39,7 @@ app.use('/solve', solverRoutes);  // This registers the POST route
 app.use('/signup', signupRoutes);  // This registers the POST route
 app.use('/login', loginRoutes);  // This registers the POST route
 app.use('/logout', logoutRoutes);  // This registers the POST route
+app.use('/simplifiedAns', ansRoutes);  // This registers the POST route
 
 // Error handling middleware
 app.use((err, req, res, next) => {

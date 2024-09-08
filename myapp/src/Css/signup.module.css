@@ -14,9 +14,9 @@
     background-color: transparent;
 }
 
-form{
+.credentialsForm{
     width: 30%;
-    height: 60vh;
+    height: 70vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -28,7 +28,7 @@ form{
     padding: 20px;
     backdrop-filter: blur(10px);
     background-color: rgba(255,255,255, 0.3);
-    border-radius: 1.5rem;
+    border-radius: 1.1rem;
     position: relative;
     z-index: 1;
 }
@@ -40,19 +40,19 @@ form{
 }
 
 
-form::after, form::before{
+.credentialsForm::after, .credentialsForm::before{
     content: '';
     position: absolute;
     height: 100%;
     width: 100%;
-    background-image: conic-gradient(from var(--angle), transparent 70%, #FA2A55);
+    background-image: conic-gradient(from var(--angle), transparent 70%, #5ad1cd);
     z-index: -1;
     padding: 3px;
     border-radius: 1.5rem;
     animation: 3s spin linear infinite;
 }
 
-form::before{
+.credentialsForm::before{
     filter: blur(1.5rem);
     opacity: 0.6;
 }
@@ -66,7 +66,7 @@ form::before{
     }
 }
 
-form h1{
+.credentialsForm h1{
     color: white;
     font-size: 20px;
     font-family: 'Outfit';
@@ -80,9 +80,9 @@ input{
     margin-left: 32px;
     font-family: 'Outfit';
     font-size: small;
+    padding: 10px;
 }
 input::placeholder{
-    padding: 10px;
     color: black;
     font-family: 'Outfit';
     font-size: small;
@@ -112,18 +112,18 @@ input::placeholder{
     font-family: 'Outfit';
     color: white;
     font-size: small;
-    background-color: #FA2A55;
+    background-color: #5ad1cd;
 }
 .buttons:hover{
     border-style: solid;
-    border-width: 1.2px;
-    border-color: #FA2A55;
+    border-width: 1.5px;
+    border-color: #5ad1cd;
     background-color: transparent;
     transition: 0.3s ease-in-out;
 }
 
 @media (max-width: 768px){
-    form{
+    .credentialsForm{
         width: 90%;
     }
 

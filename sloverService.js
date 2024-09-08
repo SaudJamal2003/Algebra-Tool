@@ -91,6 +91,7 @@ module.exports.generateResponse = async(req) => {
     genAIModel = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
     const completions = await genAIModel.generateContentStream(conversationText);
 
+    // console.log('ConversationText: ', conversationText)
 
     // console.log(completions)
 
@@ -118,10 +119,10 @@ module.exports.generateResponse = async(req) => {
     for await (const chunk of completions.stream) {
         chunks.push(JSON.stringify(chunk) + "\n");  // Append newline delimiter
     }
-
+    // console.log('Chunks: ', chunks)
     // Create a Node.js Readable stream from the accumulated chunks
     const nodeStream = Readable.from(chunks);
-
+    // console.log("Nodestream: ",nodeStream)
     return nodeStream;  // Return a Node.js-readable stream
 
 }
